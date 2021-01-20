@@ -126,8 +126,8 @@ Resources:
           Essential: true
           Memory: 512
           MountPoints:
-            - SourceVolume: myapp
-              ContainerPath: /myapp
+            - SourceVolume: drupal_db
+              ContainerPath: /drupal_db
           PortMappings:
             - ContainerPort: 3306
           Environment:
@@ -151,6 +151,10 @@ Resources:
           Host: 
             SourcePath: "/opt/drupal_ref_repo"
           Name: myapp
+        - 
+          Host:
+            SourcePath: "/opt/drupal_db"
+          Name: drupal_db
 
   SecurityGroupALB:
     Type: "AWS::EC2::SecurityGroup"
