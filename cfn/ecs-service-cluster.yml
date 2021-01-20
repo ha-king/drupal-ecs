@@ -19,6 +19,10 @@ Parameters:
   KeyName:
     Description: Name of the private key for EC2 access via SSH
     Type: String
+  BucketName:
+    Description: Name of the S3 bucket for code artifacts
+    Type: String
+    Default: avst-estee-poc
 
 Mappings:
   AWSRegionToAMI:
@@ -290,10 +294,10 @@ Resources:
           yum install -y aws-cfn-bootstrap git tar gunzip
           curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py
           pip install awscli
-          aws s3 cp s3://avst-estee-poc/drupal.tar.gz .
+          aws s3 cp s3://${BucketName}/drupal.tar.gz .
           mkdir /opt/drupal_ref_repo && mv drupal.tar.gz /opt/drupal_ref_repo/drupal.tar.gz
           tar -xvfz /opt/drupal_ref_repo/drupal.tar.gz
-          aws s3 cp s3://avst-estee-poc/clinique-master.sql.gz .
+          aws s3 cp s3://${BucketName}/clinique-master.sql.gz .
           mkdir /opt/drupal_db && mv clinique-master.sql.gz /opt/drupal_db/clinique-master.sql.gz
           gunzip /opt/drupal/clinique-master.sql.gz
           /opt/aws/bin/cfn-init -v --region ${AWS::Region} --stack ${AWS::StackName} --resource LaunchConfiguration
