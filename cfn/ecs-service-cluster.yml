@@ -147,7 +147,6 @@ Resources:
           Image: memcached
           Essential: true
           Memory: 512
-          LogDriver: awslogs
           PortMappings:
             - ContainerPort: 11211
       Volumes:
